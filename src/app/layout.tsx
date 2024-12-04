@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <div className="container">{children}</div>
+        <div className="isolate overflow-hidden bg-gray-900 ">{children}</div>
         <Footer />
       </body>
     </html>
