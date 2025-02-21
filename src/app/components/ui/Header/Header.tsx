@@ -4,7 +4,7 @@ const Header = () => {
 
     return (
         <header>
-            <nav className=" bg-gradient-to-r from-indigo-500 via-purple-500  to-cyan-950  decoration-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+            <nav className=" bg-gradient-to-r from-rose-300 via-emerald-300 to-cyan-950 dark:bg-lime-600  decoration-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                 <div className="flex flex-wrap text-white justify-around items-center mx-auto max-w-screen-xl">
                     <a href="#" className="flex items-center">
                         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">InfoNews</span>

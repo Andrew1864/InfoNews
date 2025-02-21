@@ -25,7 +25,7 @@ export default function RootLayout({
         }}
       >
         <Header />
-        <main className="bg-gradient-to-r from-rose-300 via-emerald-300  to-cyan-950 dark:bg-lime-600">{children}</main>
+        <main className="">{children}</main>
         <Footer />
       </body>
     </html>
