@@ -1,6 +1,17 @@
+
 import TableRow from "./TableRow";
 
-const Table = ({ data, headers }) => {
+interface Header {
+    key: string,
+    title: string,
+};
+
+interface TableProps {
+    data: {[key:string]:any} [];
+    headers: Header[];
+}
+
+const Table: React.FC<TableProps> = ({ data, headers }) => {
     return (
         <table className="w-full text-left table-auto min-w-max bg-white">
             <thead>

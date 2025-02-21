@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 
-const inter = Inter({ subsets: ['latin'] });
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,10 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="ru">
+      <body
+        style={{
+          display: "grid",
+          gridTemplateRows: "auto 1fr auto",
+          minHeight: "100vh",
+        }}
+      >
         <Header />
-        <div className="isolate overflow-hidden bg-gray-900 ">{children}</div>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
