@@ -1,4 +1,4 @@
-import Table from "@/components/ui/table/Table"
+import Table from "@/components/ui/Table/Table"
 
 
 export default async function Weather() {

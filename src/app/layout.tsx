@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
+import Header from "./components/ui/Header/Header";
+import Footer from "./components/ui/Footer/Footer";
 
 
 
@@ -26,7 +25,7 @@ export default function RootLayout({
         }}
       >
         <Header />
-        <main>{children}</main>
+        <main className="bg-gradient-to-r from-rose-300 via-emerald-300  to-cyan-950 dark:bg-lime-600">{children}</main>
         <Footer />
       </body>
     </html>
