@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import ActiveLink from "../ActiveLink/ActiveLink";
 
@@ -5,10 +6,10 @@ const Header = () => {
 
     return (
         <header>
-            <nav className=" bg-gradient-to-r from-rose-300 via-emerald-300 to-cyan-950 dark:bg-lime-600  decoration-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+            <nav className=" bg-gradient-to-r from-rose-300 via-emerald-300 to-cyan-950 dark:bg-lime-600  decoration-white border-gray-200 px-4 lg:px-6 py-2.5 ">
                 <div className="flex flex-wrap text-white justify-around items-center mx-auto max-w-screen-xl">
                     <a href="#" className="flex items-center">
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">InfoNews</span>
+                        <Link className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white" href="/">InfoNews</Link>
                     </a>
                     <div className="hidden justify-around items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">

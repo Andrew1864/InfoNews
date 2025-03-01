@@ -1,47 +1,102 @@
-import Table from "@/components/ui/Table/Table"
+"use client";
 
+import { useState } from "react";
+import Table from "@/components/ui/Table/Table";
 
-export default async function Weather() {
+interface WeatherData {
+  days?: {
+    datetime: string;
+    temp: number;
+    humidity: number;
+    conditions: string;
+  }[];
+}
 
-   
+export default function Weather() {
+  const [city, setCity] = useState("");
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    return (
-        <section id="weather">
-            <div className="container flex items-center flex-col content-center justify-center max-w-7xl mx-auto px-2 mb-3">
-                <h2 className="mb-4 text-4xl font-bold text-white">Погода</h2>
-                <div className="w-full max-w-sm min-w-[200px] mb-3">
-                    <div className="relative flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
-                            <path  d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"/>
-                        </svg>
+  const fetchWeather = async () => {
+    setLoading(true);
+    setError(""); // Очистка ошибки перед новым запросом
+    setWeatherData(null); // Очистка предыдущих данных
 
-                        <input
-                        type="search"
-                            className="w-full bg-transparent placeholder:text-slate-400 text-white text-sm border border-slate-200 rounded-md pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                            placeholder="Поиск..."
-                        />
+    try {
+      const response = await fetch(
+        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(
+          city
+        )}?unitGroup=metric&key=N2D4TUYFK3ZEJG6G6UQMDS9CV&contentType=json`
+      );
 
-                        <button
-                        
-                            className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                            type="button"
-                        >
-                            Search
-                        </button>
-                    </div>
-                </div>
-                 {/* <Table
-                headers={[
-                    { key: "date", title: "Дата и время" },
-                    { key: "humidity", title: "Влажность" },
-                    { key: "preciptype", title: "Тип осадки" },
-                    { key: "post", title: "Город" },
-                ]}
-                data={tableData}
-            /> */}
-            </div>
-           
-        </section>
-    );
-};
+      if (!response.ok) {
+        throw new Error("Ошибка запроса. Проверьте правильность ввода города.");
+      }
 
+      const data = await response.json();
+
+      if (!data.days) {
+        throw new Error("Данные о погоде не найдены. Попробуйте другой город.");
+      }
+
+      setWeatherData(data);
+    } catch (err: any) {
+      setError(err.message || "Произошла ошибка при загрузке данных.");
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <section id="weather">
+      <div className="container flex items-center flex-col content-center justify-center max-w-7xl mx-auto px-2 mb-3">
+        <h2 className="mb-4 text-4xl font-bold text-white">Погода</h2>
+
+        {/* Поле ввода и кнопка */}
+        <div className="w-full max-w-sm min-w-[200px] mb-3">
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="w-full bg-white text-black placeholder:text-gray-500 text-sm border border-slate-200 rounded-md pl-3 pr-3 py-2"
+              placeholder="Введите город..."
+            />
+            <button
+              onClick={fetchWeather}
+              className="ml-2 rounded-md bg-slate-800 py-2 px-4 text-white hover:bg-slate-700 transition"
+            >
+              {loading ? "Загрузка..." : "Поиск"}
+            </button>
+          </div>
+        </div>
+
+        {/* Отображение ошибки */}
+        {error && (
+          <div className="text-red-500 bg-red-100 p-2 rounded-md mt-2">
+            {error}
+          </div>
+        )}
+
+        {/* Отображение данных, если есть погода */}
+        {weatherData?.days && (
+          <Table
+            headers={[
+              { key: "datetime", title: "Дата" },
+              { key: "temp", title: "Температура (°C)" },
+              { key: "humidity", title: "Влажность (%)" },
+              { key: "conditions", title: "Условия" },
+            ]}
+            data={weatherData.days.map((day) => ({
+              datetime: day.datetime,
+              temp: day.temp,
+              humidity: day.humidity,
+              conditions: day.conditions,
+            }))}
+          />
+        )}
+      </div>
+    </section>
+  );
+}
