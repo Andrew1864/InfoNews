@@ -1,3 +1,4 @@
+"use client";
 import TextCell from "./TextCell";
 
 interface Header {

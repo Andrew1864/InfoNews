@@ -1,3 +1,4 @@
+"use client";
 
 interface TextCellProps {
     value: string
