@@ -13,11 +13,16 @@ interface NewsCardProps {
   image: string | null;
 }
 
-export default function NewsCard({ id, title, description, image }: NewsCardProps) {
+export default function NewsCard({
+  id,
+  title,
+  description,
+  image,
+}: NewsCardProps) {
   const [imageError, setImageError] = useState(false);
 
   const handleImageError = () => {
-    setImageError(true);  // Если картинка не может быть загружена, устанавливаем состояние ошибки
+    setImageError(true); // Если картинка не может быть загружена, устанавливаем состояние ошибки
   };
 
   return (

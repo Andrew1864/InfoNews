@@ -1,15 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getNews } from "@/services/Api/News/NewsApi";
+import getNews from "@/services/Api/News/NewsApi";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Container, Typography, CardMedia } from "@mui/material";
-
-interface NewsArticle {
-  title: string;
-  description: string | null;
-  urlToImage: string | null;
-  content: string | null;
-}
 
 export default async function NewsDetails({
   params,
@@ -21,14 +14,14 @@ export default async function NewsDetails({
 
   if (!article) {
     return notFound();
-  }
+  };
 
   return (
     <>
       <Container>
-      <Link href="/news">
-        <ArrowBackIcon className="relative right-10 top-2" />
-      </Link>
+        <Link href="/news">
+          <ArrowBackIcon className="relative right-10 top-2" />
+        </Link>
         <Typography variant="h3">{article.title}</Typography>
         {article.urlToImage && (
           <CardMedia
