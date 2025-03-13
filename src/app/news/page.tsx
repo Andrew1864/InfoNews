@@ -1,15 +1,62 @@
 "use client";
 
-import Card from "@/components/ui/Card/Card";
+import { useEffect, useState } from "react";
+import NewsCard from "@/components/ui/Card/Card";
+import { getNews } from "@/services/Api/News/NewsApi";
+import { Container, Typography } from "@mui/material";
+
+interface NewsArticle {
+  title: string;
+  description: string | null;
+  urlToImage: string | null;
+}
 
 export default function News() {
+  const [articles, setArticles] = useState<NewsArticle[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const data = await getNews();
+          console.log("Полученные данные API:", data);  // Выводим полученные данные
+        setArticles(data.articles || []);
+      } catch (error) {
+        console.error("Ошибка загрузки новостей:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchNews();
+  }, []);
+
   return (
     <section id="news">
-      <div className="container mt-3 flex items-center flex-col content-center justify-center max-w-7xl mx-auto px-2 mb-3">
-        <div className="">
-          <Card />
-        </div>
-      </div>
+      <Container>
+        <Typography variant="h4" gutterBottom>
+          Новости
+        </Typography>
+        {loading ? (
+          <Typography>Загрузка...</Typography>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-4">
+            {articles.length > 0 ? (
+              articles.map((article, index) => (
+                <NewsCard
+                  key={index}
+                  id={index}
+                  title={article.title}
+                  description={article.description}
+                  image={article.urlToImage}
+                />
+              ))
+            ) : (
+              <Typography>Новости не найдены.</Typography>
+            )}
+          </div>
+        )}
+      </Container>
     </section>
   );
 }
