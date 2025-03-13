@@ -12,7 +12,6 @@ async function getNews(query: string = "music", sortBy: string = "music") {
 
     url.search = new URLSearchParams(params).toString();
     
-
     try {
         const response = await fetch(url.toString());
         if (!response.ok) {
