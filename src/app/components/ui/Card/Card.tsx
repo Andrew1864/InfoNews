@@ -22,21 +22,35 @@ export default function NewsCard({
   const [imageError, setImageError] = useState(false);
 
   const handleImageError = () => {
-    setImageError(true); // Если картинка не может быть загружена, устанавливаем состояние ошибки
+    setImageError(true); // Если картинка не загрузилась, переключаем состояние ошибки
   };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <Link href={`/news/${id}`} passHref>
         <CardActionArea>
-          {!imageError && image && (
+          {!imageError && image ? (
             <CardMedia
               component="img"
               height="140"
               image={image}
               alt={title}
-              onError={handleImageError} // Обработчик ошибки при загрузке изображения
+              onError={handleImageError} // Обработчик ошибки при загрузке
             />
+          ) : (
+            <Typography
+              variant="body2"
+              sx={{
+                height: "140px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#f0f0f0",
+                color: "#777",
+              }}
+            >
+              Изображение отсутствует
+            </Typography>
           )}
           <CardContent>
             <Typography gutterBottom variant="h5">
