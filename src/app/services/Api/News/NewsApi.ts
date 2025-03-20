@@ -1,7 +1,7 @@
 async function getNews(
   page: number = 1,
   pageSize: number = 9,
-  query: string = "technology",
+  query: string = "games",
   sortBy: string = "publishedAt"
 ) {
   const apiKey = "6904b03c346442b890b08010da2d12da";
