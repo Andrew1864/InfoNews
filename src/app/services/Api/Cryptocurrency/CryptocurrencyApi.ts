@@ -4,6 +4,7 @@ export interface CryptoData {
   symbol: string;
   price_usd: string;
   rank: number;
+  percent_change_24h: string;
 }
 
 export const fetchCryptos = async (

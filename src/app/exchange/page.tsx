@@ -1,19 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Table from "@/components/ui/Table/Table";
 import {
   fetchCryptos,
   CryptoData,
 } from "@/services/Api/Cryptocurrency/CryptocurrencyApi";
-
-interface CryptoProps {
-  id: string;
-  name: string;
-  symbol: string;
-  price_usd: string;
-  rank: number;
-}
 
 export default function Exchange() {
   const [cryptos, setCryptos] = useState<CryptoData[]>([]);
@@ -57,7 +50,14 @@ export default function Exchange() {
               ]}
               data={cryptos.map((crypto) => ({
                 rank: crypto.rank,
-                name: crypto.name,
+                name: (
+                  <Link
+                    href={`/exchange/${crypto.id}`}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {crypto.name}
+                  </Link>
+                ),
                 symbol: crypto.symbol,
                 price_usd: `$${crypto.price_usd}`,
               }))}
