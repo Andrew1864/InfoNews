@@ -11,6 +11,8 @@ import {
   PointElement,
 } from "chart.js";
 import { CryptoData } from "@/services/Api/Cryptocurrency/CryptocurrencyApi";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Link from "next/link";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -87,6 +89,9 @@ export default function ExchangeDetails() {
 
   return (
     <section className="flex flex-wrap justify-center gap-4">
+      <Link href={"/exchange"}>
+        <ArrowBackIcon />
+      </Link>
       <div className="md:w-[60%] mb-3 mt-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-lg p-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center">
           {crypto.name} ({crypto.symbol})
