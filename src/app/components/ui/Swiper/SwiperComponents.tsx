@@ -108,7 +108,7 @@ const SwiperComponents = () => {
                   <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                     <div className="px-8 pt-8 sm:px-10 sm:pt-10">
                       <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
-                        Разные карточки{" "}
+                       Разные Криптовалюты.
                       </p>
                     </div>
                     <div className="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
